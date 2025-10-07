@@ -1,4 +1,6 @@
-import React from 'react';
+
+
+import React, { useState } from 'react';
 
 // Service card data with comprehensive information
 const services = [
@@ -124,53 +126,87 @@ const services = [
   }
 ];
 
-const ServiceCard = ({ service }) => {
+const ServiceCard = ({ service, isExpanded, onToggle, expandedId, style }) => {
+  const handleClick = () => {
+    onToggle(isExpanded ? null : service.id);
+  };
+
   return (
     <article 
       className={`
         relative overflow-hidden rounded-[50px] bg-white/2 border border-white/10 border-1
-        transform transition-transform duration-300 hover:scale-105
-        group cursor-pointer
+        transform transition-all duration-500 ease-in-out cursor-pointer
+        group
         shadow-[inset_-4px_-4px_16px_rgba(255,255,255,0.1)]
+        ${
+          isExpanded 
+            ? 'row-span-2' 
+            : 'col-span-1 hover:scale-105'
+        }
+        ${expandedId && !isExpanded ? 'scale-95 opacity-75' : ''}
       `}
       aria-label={`${service.title} service details`}
+      onClick={handleClick}
+      style={style}
     >
       <div className={`
-        relative h-50 bg-transparent
-        flex items-center justify-center transition-all duration-300
+        relative bg-transparent
+        flex items-center justify-center transition-all duration-500
+        ${isExpanded ? 'h-32' : 'h-50'}
       `}>
-        <div>
+        <div className={`transform transition-all duration-500 ${isExpanded ? 'scale-125' : ''}`}>
           {service.icon}
         </div>
         <div className="absolute inset-0 bg-black bg-opacity-0.5"></div>
       </div>
 
       {/* Card content */}
-      <div className="p-6">
+      <div className={`p-6 transition-all duration-500 ${isExpanded ? 'p-8' : ''}`}>
         {/* Service title */}
-        <h3 className="text-xl font-bold text-white">
+        <h3 className={`font-bold text-white transition-all duration-500 ${isExpanded ? 'text-3xl mb-4' : 'text-xl'}`}>
           {service.title}
         </h3>
         
         {/* Service description */}
-        <p className="text-gray-200 text-sm leading-relaxed">
+        <p className={`text-gray-200 leading-relaxed transition-all duration-500 ${isExpanded ? 'text-lg mb-6' : 'text-sm'}`}>
           {service.description}
         </p>
 
+        {/* Expanded content */}
+        {isExpanded && (
+          <div className="animate-pulse">
+            <div className="mb-6">
+              <h4 className="text-lg font-semibold text-white mb-3">
+                Detailed Overview
+              </h4>
+              <p className="text-gray-300 leading-relaxed">
+                Our {service.title.toLowerCase()} services are designed to deliver exceptional results 
+                through innovative approaches and cutting-edge technologies. We focus on creating 
+                solutions that not only meet your current needs but also scale with your business growth.
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Key Features section */}
         <div className="space-y-3">
-          <h4 className="text-sm font-semibold text-white uppercase tracking-wide">
+          <h4 className={`font-semibold text-white uppercase tracking-wide transition-all duration-500 ${isExpanded ? 'text-base' : 'text-sm'}`}>
             Key Features
           </h4>
-          <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
+          <ul className={`gap-x-4 gap-y-2 transition-all duration-500 ${
+            isExpanded ? 'grid-cols-3' : 'grid-cols-2'
+          } grid`}>
             {service.keyFeatures.map((feature, index) => (
               <li 
                 key={index}
-                className="flex items-center text-sm text-gray-200"
+                className={`flex items-center text-gray-200 transition-all duration-500 ${
+                  isExpanded ? 'text-base' : 'text-sm'
+                }`}
               >
                 <div className={`
-                  w-2 h-2 rounded-full bg-gradient-to-r ${service.gradient} 
-                  mr-2 flex-shrink-0
+                  rounded-full bg-gradient-to-r ${service.gradient} 
+                  mr-2 flex-shrink-0 transition-all duration-500
+                  ${isExpanded ? 'w-3 h-3' : 'w-2 h-2'}
                 `}></div>
                 {feature}
               </li>
@@ -178,18 +214,91 @@ const ServiceCard = ({ service }) => {
           </ul>
         </div>
 
-        {/* Hover effect border */}
+        {/* Expanded additional features */}
+        {isExpanded && (
+          <div className="mt-8 opacity-0 animate-pulse" style={{animation: 'fadeIn 0.5s ease-in-out 0.3s forwards'}}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-3">
+                  Technologies Used
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {['React', 'Next.js', 'TypeScript', 'Tailwind'].map((tech, index) => (
+                    <span 
+                      key={index}
+                      className="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-3">
+                  Delivery Timeline
+                </h4>
+                <p className="text-gray-300">
+                  Typical project completion: 2-6 weeks depending on complexity and requirements.
+                </p>
+              </div>
+            </div>
+            
+            <div className="mt-6 text-center">
+              <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
+                Get Started
+              </button>
+            </div>
+          </div>
+        )}
 
+        {/* Close indicator for expanded cards */}
+        {isExpanded && (
+          <div className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+        )}
       </div>
     </article>
   );
 };
 
 export default function Services() {
-  return (
-    <section className="relative min-h-screen  py-20 px-4 sm:px-6 lg:px-8">
-      
+  const [expandedId, setExpandedId] = useState(null);
 
+  const handleToggle = (id) => {
+    setExpandedId(id);
+  };
+
+  // Custom layout logic for reorganizing cards
+  const getReorganizedCards = () => {
+    if (!expandedId) {
+      return services.map((service, index) => ({ ...service, order: index }));
+    }
+
+    const expandedIndex = services.findIndex(service => service.id === expandedId);
+    const expandedCard = services[expandedIndex];
+    const otherCards = services.filter(service => service.id !== expandedId);
+
+    // Calculate the row of the expanded card (3 cards per row on desktop)
+    const expandedRow = Math.floor(expandedIndex / 3);
+    
+    return [
+      // Place expanded card first with its original order
+      { ...expandedCard, order: expandedIndex },
+      // All other cards come after, maintaining their relative order
+      ...otherCards.map((service, index) => ({ 
+        ...service, 
+        order: expandedIndex + 1 + index 
+      }))
+    ];
+  };
+
+  const reorganizedCards = getReorganizedCards();
+
+  return (
+    <section className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8">
       <div className="relative max-w-7xl mx-auto">
         {/* Header section */}
         <div className="text-center mb-16 space-y-4">
@@ -202,9 +311,19 @@ export default function Services() {
         </div>
 
         {/* Services grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-          {services.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 auto-rows-auto">
+          {reorganizedCards.map((service) => (
+            <ServiceCard 
+              key={service.id} 
+              service={service} 
+              isExpanded={expandedId === service.id}
+              expandedId={expandedId}
+              onToggle={handleToggle}
+              style={{
+                order: service.order,
+                gridColumn: expandedId === service.id ? '1 / -1' : 'auto'
+              }}
+            />
           ))}
         </div>
 
@@ -217,6 +336,20 @@ export default function Services() {
           </div>
         </div>
       </div>
+
+      {/* Custom CSS for fadeIn animation */}
+      <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </section>
   );
 }
