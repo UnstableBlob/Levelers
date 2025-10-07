@@ -148,7 +148,7 @@ const Background = () => {
               width: "100%",
               height: "100%",
               borderRadius: "50%",
-              border: "4px solid rgba(255, 255, 255, 0.16)",
+              border: "4px solid rgba(255, 255, 255, 0.33)",
               filter: "blur(3px)",
               background: "transparent",
               boxSizing: "border-box",
@@ -156,8 +156,8 @@ const Background = () => {
               top: 0,
               left: 0,
               boxShadow: `
-                inset 0 -60px 120px 0 rgba(255, 255, 255, 0.16),
-                0 0 40px 12px rgba(255, 255, 255, 0.18)
+                inset 0 -60px 120px 0 rgba(255, 255, 255, 0.25),
+                0 0 100px 8px rgba(255, 255, 255, 0.5)
               `,
             }}
           />
@@ -199,7 +199,7 @@ const Background = () => {
               left: 0,
               boxShadow: `
                 inset 0 60px 60px 0 rgba(255, 255, 255, 0.16),
-                0 0 40px 12px rgba(255, 255, 255, 0.18)
+                0 0 100px 8px rgba(255, 255, 255, 0.5)
               `,
             }}
           />

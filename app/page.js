@@ -34,11 +34,8 @@ export default function Home() {
       <Background />
       <div className="relative z-10">
         <Hero />
-        <AboutUs />
         <Services />
-        <Projects />
-        <Reviews />
-        <ContactUs />
+
       
       </div>
     </div>
