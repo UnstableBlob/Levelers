@@ -1,6 +1,7 @@
 
 'use client'
 import React, { useEffect, useState, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { FaHome, FaUser, FaCode, FaTools } from "react-icons/fa";
 import { IoCall, IoColorFill, IoReorderThreeOutline } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
@@ -49,8 +50,22 @@ const Magnetic = ({children}) => {
 }
 
 const Navbar = () => {
+    const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+
+    // Pages where navbar should be hidden
+    const excludedPages = [
+        '/commission',
+        '/auth',
+        '/login',
+        '/signup'
+    ];
+    
+    // Don't render navbar on excluded pages
+    if (excludedPages.includes(pathname)) {
+        return null;
+    }
 
     useEffect(() => {
         const onScroll = () => {
