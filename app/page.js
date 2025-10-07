@@ -11,9 +11,11 @@ import ContactUs from "../components/contactus.jsx";
 import Navbar from "../components/navbar.jsx";
 import { useRouter } from "next/navigation";
 import Background from "@/components/Background.jsx";
+import FAQPage from "@/components/faq.jsx";
 
 import Lenis from 'lenis';
 import { motion, useScroll, useTransform } from "framer-motion";
+import { FaQq } from "react-icons/fa";
 
 
 
@@ -35,6 +37,8 @@ export default function Home() {
       <div className="relative z-10">
         <Hero />
         <Services />
+        <Reviews />
+        <FAQPage />
 
       
       </div>

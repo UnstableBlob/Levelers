@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import BackgroundStatic from '@/components/BackgroundStatic.jsx';
 
 export default function CommissionPage() {
   const [formData, setFormData] = useState({
@@ -84,7 +85,7 @@ export default function CommissionPage() {
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-
+        <BackgroundStatic />
 
       <div className="relative max-w-2xl mx-auto">
         {/* Header */}
@@ -102,7 +103,7 @@ export default function CommissionPage() {
         </div>
 
         {/* Main Form Card */}
-        <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl">
+        <div className="shadow-[inset_-4px_-4px_16px_rgba(255,255,255,0.1)] bg-white/2 border border-white/10 border-1 rounded-3xl p-8 md:p-10 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-8">
             
             {/* Service Selection */}

@@ -134,10 +134,10 @@ const ServiceCard = ({ service, isExpanded, onToggle, expandedId, style }) => {
   return (
     <article 
       className={`
-        relative overflow-hidden rounded-[50px] bg-white/2 border border-white/10 border-1
+        relative overflow-hidden rounded-[50px] 
         transform transition-all duration-500 ease-in-out cursor-pointer
         group
-        shadow-[inset_-4px_-4px_16px_rgba(255,255,255,0.1)]
+        shadow-[inset_-4px_-4px_16px_rgba(255,255,255,0.1)] bg-white/2 border border-white/10 border-1
         ${
           isExpanded 
             ? 'row-span-2' 
