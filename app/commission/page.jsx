@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 import BackgroundStatic from '@/components/BackgroundStatic.jsx';
 
 const supabase = createClient(
@@ -10,6 +11,7 @@ const supabase = createClient(
 );
 
 export default function CommissionPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     service_type: '',
     project_name: '',
@@ -379,7 +381,10 @@ export default function CommissionPage() {
               
               <button
                 type="button"
-                onClick={handleCancel}
+                onClick={() => {
+                  handleCancel();
+                  router.push('/');
+                }}
                 disabled={isSubmitting}
                 className="
                   w-full py-4 px-8 bg-gray-700/50 text-gray-300 font-semibold text-lg

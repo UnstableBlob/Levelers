@@ -32,7 +32,7 @@ export default function Home() {
   
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
-      {/* <Background /> */}
+      <Background />
       <div className="relative z-10">
         <Hero />
         <Services />

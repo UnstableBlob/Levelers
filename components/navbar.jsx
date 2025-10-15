@@ -8,6 +8,7 @@ import { IoMdClose } from "react-icons/io";
 import { easeIn, easeInOut, motion, AnimatePresence } from 'framer-motion';
 import { FaMoon } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
+import { useRouter } from 'next/navigation';
 
 
 
@@ -197,17 +198,19 @@ const FlipLink = ({ children, href }) => {
 
 };
 
+const router = useRouter();
+
     return (
         <motion.nav 
         initial={{y:-100,opacity:0}}
         animate={{y:0,opacity:1}}
         transition={{duration:0.7,ease:easeInOut}}
 
-        className='fixed w-full mx-auto z-50 mt-5'>
+        className='fixed w-full mx-auto z-50 mt-5 '>
             
                 <div className={`
                 ${scrolled 
-                    ? "w-[90%] md:w-[50%] bg-white/7 backdrop-blur-2xl md:px-10 rounded-full" 
+                    ? "w-[90%] md:w-[50%]         shadow-[inset_-4px_-4px_16px_rgba(255,255,255,0.1)] bg-white/2 backdrop-blur-2xl md:px-10 rounded-full" 
                     : "md:w-[95%] w-full"} 
                 mx-auto p-3 py-4  transition-all duration-500 ease-in flex justify-between items-center
                 `}>                
@@ -222,8 +225,9 @@ const FlipLink = ({ children, href }) => {
                     )}
                 </ul>
 
-                <div className='hidden md:flex gap-3'>
-                    {!scrolled && <FlipLink>CONTACT</FlipLink>}
+                <div className='hidden md:flex gap-3'
+              onClick={() => router.push('/auth')}>
+                    {!scrolled && <FlipLink>login</FlipLink>}
                     {scrolled && <Magnetic><IoCall/></Magnetic>}
                 </div>
 
