@@ -54,18 +54,6 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    // Pages where navbar should be hidden
-    const excludedPages = [
-        '/commission',
-        '/auth',
-        '/login',
-        '/signup'
-    ];
-    
-    // Don't render navbar on excluded pages
-    if (excludedPages.includes(pathname)) {
-        return null;
-    }
 
     useEffect(() => {
         const onScroll = () => {
