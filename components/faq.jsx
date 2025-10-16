@@ -27,7 +27,7 @@ export default function FAQPage() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <main className="min-h-0.5vh p-6">
+    <main id="faq" className="min-h-0.5vh p-6">
       <h1 className="text-[50px] font-semibold text-gray-300 mb-8 text-center pt-8">
         Everything Explained
       </h1>

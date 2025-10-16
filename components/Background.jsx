@@ -37,12 +37,14 @@ const Background = () => {
         // Reverse angular movement from center back to initial
         return Math.cos(latestAngleXRev) * 400;
       } else if (latestProgress <= 0.8) {
-        // Stay at center position
-        return 0;
+        // Stay at the 0.6 position
+        return Math.cos(Math.PI / 2) * 400;
       } else {
-        // Angular movement from center to final position
+        // Transition from 0.6 position to final position
         const progress = (latestProgress - 0.8) / 0.2;
-        return Math.sin(progress * Math.PI / 2) * 1000;
+        const startX = Math.cos(Math.PI / 2) * 400;
+        const endX = Math.sin(progress * Math.PI / 2) * 1000;
+        return startX + (endX - startX) * progress;
       }
     }
   );
@@ -61,12 +63,14 @@ const Background = () => {
         // Reverse angular movement from center back to initial
         return -Math.sin(latestAngleYRev) * - 1000 ;
       } else if (latestProgress <= 0.8) {
-        // Stay at center position
-        return 0;
+        // Stay at the 0.6 position
+        return -Math.sin(Math.PI / 2) * -1000;
       } else {
-        // Angular movement from center to final position
+        // Transition from 0.6 position to final position
         const progress = (latestProgress - 0.8) / 0.2;
-        return Math.cos(progress * Math.PI / 2) * 1000;
+        const startY = -Math.sin(Math.PI / 2) * -1000;
+        const endY = Math.cos(progress * Math.PI / 2) * 1000;
+        return startY + (endY - startY) * progress;
       }
     }
   );
@@ -86,12 +90,17 @@ const Background = () => {
         // Reverse angular movement from center back to initial
         return -Math.cos(latestAngleXRev) * 400;
       } else if (latestProgress <= 0.8) {
-        // Stay at center position
-        return 0;
+        // Rotate and move to position of first circle
+        const progress = (latestProgress - 0.6) / 0.2;
+        const startX = -Math.cos(Math.PI / 2) * 400;
+        const endX = Math.cos(Math.PI / 2) * 400; // Position of first circle
+        return startX + (endX - startX) * progress;
       } else {
-        // Angular movement from center to final position
+        // Transition from first circle position to final position
         const progress = (latestProgress - 0.8) / 0.2;
-        return Math.sin(progress * -Math.PI / 2) * 1000;
+        const startX = Math.cos(Math.PI / 2) * 400;
+        const endX = Math.sin(progress * -Math.PI / 2) * 1000;
+        return startX + (endX - startX) * progress;
       }
     }
   );
@@ -110,12 +119,17 @@ const Background = () => {
         // Reverse angular movement from center back to initial
         return Math.sin(latestAngleYRev) * 1000;
       } else if (latestProgress <= 0.8) {
-        // Stay at center position
-        return 0;
+        // Rotate and move to position of first circle
+        const progress = (latestProgress - 0.6) / 0.2;
+        const startY = Math.sin(Math.PI / 2) * 1000;
+        const endY = -Math.sin(Math.PI / 2) * -1000; // Position of first circle
+        return startY + (endY - startY) * progress;
       } else {
-        // Angular movement from center to final position
+        // Transition from first circle position to final position
         const progress = (latestProgress - 0.8) / 0.2;
-        return Math.cos(progress * -Math.PI / 2) * 1000;
+        const startY = -Math.sin(Math.PI / 2) * -1000;
+        const endY = Math.cos(progress * -Math.PI / 2) * 1000;
+        return startY + (endY - startY) * progress;
       }
     }
   );
@@ -167,10 +181,10 @@ const Background = () => {
       <motion.div
         className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center pointer-events-none z-0"
         style={{
-          scale: useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6], [1.5, 0.5, 0.5, 1.5]),
+          scale: useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6, 0.8], [1.5, 0.5, 0.5, 1.5, 1.5]),
           translateX: posX2,
           translateY: posY2,
-          rotate: useTransform(scrollYProgress, [0,0.2,0.4,0.6],["0deg","90deg","450deg","540deg"]),
+          rotate: useTransform(scrollYProgress, [0, 0.2, 0.4, 0.6, 0.8], ["0deg", "90deg", "450deg", "540deg", "720deg"]),
           height: "80vw",
           maxHeight: "100vh",
         }}

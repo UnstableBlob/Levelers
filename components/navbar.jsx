@@ -55,6 +55,15 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
+    // Smooth scroll to section
+    const scrollToSection = (e, sectionId) => {
+        e.preventDefault();
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setIsOpen(false); // Close mobile menu after clicking
+        }
+    };
 
     useEffect(() => {
         const onScroll = () => {
@@ -71,9 +80,9 @@ const Navbar = () => {
 
     const NavList = [
         { heading: "Home", icons: <FaHome />, id: "home" },
-        { heading: "About", icons: <FaUser />, id: "about" },
-        { heading: "Projects", icons: <FaCode size={25} />, id: "projects" },
-        { heading: "Services", icons: <FaTools />, id: "services" }
+        { heading: "Services", icons: <FaTools />, id: "services" },
+        { heading: "Reviews", icons: <FaCode size={25} />, id: "reviews" },
+        { heading: "FAQ", icons: <FaUser />, id: "faq" }
     ];
 
     /*stagger on hover*/
@@ -218,8 +227,8 @@ const router = useRouter();
                 <ul className='md:flex hidden gap-10 text-xl'>
                     {NavList.map((item, index) => 
                         <li key={index} className='flex items-center gap-2 cursor-pointer'>
-                            {!scrolled && <FlipLink href={`#${item.id}`}>{item.heading}</FlipLink>}
-                            {scrolled && <Magnetic><a href={`#${item.id}`}>{item.icons}</a></Magnetic>}
+                            {!scrolled && <FlipLink href={`#${item.id}`} onClick={(e) => scrollToSection(e, item.id)}>{item.heading}</FlipLink>}
+                            {scrolled && <Magnetic><a href={`#${item.id}`} onClick={(e) => scrollToSection(e, item.id)}>{item.icons}</a></Magnetic>}
                         </li>
 
                     )}
@@ -239,7 +248,7 @@ const router = useRouter();
             <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "opacity-100" : "max-h-0 opacity-0"} w-full`}>
                 <div className="p-4">
                     {NavList.map((item, i) => (
-                        <a key={i} href={`#${item.id}`} className='flex gap-3 items-center my-5 hover:bg-white/20 p-3 rounded-2xl cursor-pointer'>
+                        <a key={i} href={`#${item.id}`} onClick={(e) => scrollToSection(e, item.id)} className='flex gap-3 items-center my-5 hover:bg-white/20 p-3 rounded-2xl cursor-pointer'>
                             <div className='text-2xl'>{item.icons}</div>
                             <div className='text-2xl'>{item.heading}</div>
                         </a>

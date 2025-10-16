@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReviewForm from './ReviewForm';
 
 export default function Reviews() {
+  const [showReviewForm, setShowReviewForm] = useState(false);
 
   const testimonials = [
     {
@@ -62,11 +64,8 @@ export default function Reviews() {
   }, []);
 
   return (
-    <section className="min-h-70%vh py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-
-
+    <section id="reviews" className="min-h-70%vh py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <div className="relative max-w-7xl mx-auto">
-        {/* Main Content Grid */}
         <div className="grid lg:grid-cols-5 gap-12 items-center min-h-[70vh]">
           {/* Left Side - Header Section */}
           <div className="lg:col-span-2">
@@ -84,6 +83,7 @@ export default function Reviews() {
             {/* Leave a Review Button - Desktop */}
             <div className="hidden lg:block">
               <button 
+                onClick={() => setShowReviewForm(true)}
                 className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transform transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -180,6 +180,7 @@ export default function Reviews() {
         {/* Mobile: Leave a Review Button */}
         <div className="lg:hidden text-center mt-12">
           <button 
+            onClick={() => setShowReviewForm(true)}
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold text-lg rounded-2xl shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transform transition-all duration-300 hover:scale-105 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,6 +190,12 @@ export default function Reviews() {
           </button>
         </div>
       </div>
+
+      {/* Review Form Modal */}
+      {showReviewForm && (
+        <ReviewForm onClose={() => setShowReviewForm(false)} />
+      )}
+
       <style jsx>{`
         .scrollbar-hide {
           -ms-overflow-style: none;

@@ -259,7 +259,7 @@ export default function Services() {
 
   if (loading) {
     return (
-      <section className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+      <section id="services" className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
           <p className="mt-4 text-gray-300">Loading services...</p>
@@ -270,7 +270,7 @@ export default function Services() {
 
   if (error) {
     return (
-      <section className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+      <section id="services" className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-500">Error loading services: {error}</p>
         </div>
@@ -279,7 +279,7 @@ export default function Services() {
   }
 
   return (
-    <section className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative min-h-screen py-20 px-4 sm:px-6 lg:px-8">
       <div className="relative max-w-7xl mx-auto">
         {/* Header section */}
         <div className="text-center mb-16 space-y-4">

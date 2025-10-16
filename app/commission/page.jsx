@@ -123,6 +123,25 @@ export default function CommissionPage() {
       const result = await response.json();
 
       if (response.ok) {
+        // Send thank you email
+        try {
+          await fetch('/api/send-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userEmail: user.email,
+              userName: formData.project_name, // or use a separate name field if you have one
+              projectName: formData.project_name,
+              serviceType: formData.service_type,
+            }),
+          });
+        } catch (emailError) {
+          console.error('Failed to send email, but application was submitted:', emailError);
+          // Don't show error to user, application was successful
+        }
+
         setShowSuccessModal(true);
         
         // Reset form
@@ -270,11 +289,14 @@ export default function CommissionPage() {
 
             {/* Budget */}
             <div>
-              <label htmlFor="budget" className="block text-lg font-semibold text-white mb-3">
+              <label htmlFor="budget" className="block text-lg font-semibold text-white mb-2">
                 Budget
               </label>
+              <h1 className='text-white/200 mb-2'>
+                  Please mention you estimated budget so we can tailor our services to fit your needs.
+              </h1>
               <div className="relative">
-                <span className="absolute left-4 top-4 text-gray-400 text-lg">$</span>
+                <span className="absolute left-4 top-4 text-gray-400 text-lg">₹</span>
                 <input
                   type="number"
                   id="budget"
@@ -292,6 +314,7 @@ export default function CommissionPage() {
                     ${errors.budget ? 'border-red-500' : 'border-gray-600'}
                   `}
                 />
+                
               </div>
               {errors.budget && (
                 <p className="mt-2 text-red-400 text-sm">{errors.budget}</p>
