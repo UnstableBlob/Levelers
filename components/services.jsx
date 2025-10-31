@@ -43,6 +43,7 @@ const ServiceCard = ({ service, isExpanded, onToggle, expandedId, style }) => {
       className={`
         relative overflow-hidden rounded-[50px] 
         transform transition-all duration-500 ease-in-out cursor-pointer
+        backdrop-blur-lg
         group
         shadow-[inset_-4px_-4px_16px_rgba(255,255,255,0.1)] bg-white/2 border border-white/10 border-1
         ${
